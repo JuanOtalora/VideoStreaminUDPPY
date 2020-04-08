@@ -1,0 +1,132 @@
+
+SERVICIOS 
+
+1. Hacer login
+	- Método: POST
+	- Data format: JSON
+	- URL: /login
+
+	- params:
+		{
+			"user" : "value",
+			"password" : "value",
+			"direccionIP" : "direccionIPUsuario"
+		}
+
+	- return type:
+		{
+			"usuarioiD" : "value",
+			"direccionServidor" : "direccion"
+		}
+
+2. Dar todos los videos
+	- Método: GET
+	- Data format: JSON
+	- URL: /videos
+
+	- Return type:
+		{
+			"videos" : [
+				{
+					"idVideo" : "idVideo",
+					"nombre" : "nombreVideo",
+					"puertoConexion" : "puertoUDP" 
+				}
+			]
+		}
+
+3. Crear lista de reproduccion
+	- Método: POST
+	- Data format: JSON
+	- URL: /lista
+
+	- params:
+		{
+			"nombre" : "Nombre del usuario",
+			"idVideos" : ["idv1","idv2"],
+			"idUsuario" : "idUsuario"
+		}
+
+	- Return type:
+		{
+			"idLista" : "idListaCreada"
+		}
+
+4. Dar listas de reproduccion de usuario
+	- Método: GET
+	- Data format: NA
+	- URL: /usuario/{id}/listas
+
+	- Return type:
+		{
+			"listas" : [
+				"nombre" : "nombreLista",
+				"id" : "idLista",
+				"videos" : [
+					{
+						"idVideo" : "idVideo",
+						"nombre" : "nombreVideo",
+						"puertoConexion" : "puertoUDP" 
+					}	
+				]
+			]
+		}
+
+5. Subir video a servidor
+	- Método: POST
+	- Data format: NA
+	- URL: /video
+
+	- Params:
+		{
+			"nombre" : "nombre del video",
+			"file" : ARCHIVO
+		}
+
+	- Return type:
+		{
+			"idVideo" : "idVideo",
+			"nombre" : "nombreVideo",
+			"puertoConexion" : "puertoUDP" 
+		}
+
+6. Iniciar transmisión de video
+	- METODO: POST
+	- Data format : JSON
+	- URL: /transmision
+
+	- Params:
+	{
+		"idVideo" : "idVideo",
+		"idUsuario" : "idUsuario",
+		"puerto" : "puertoVideo",
+		"ipUsuario" : "ipUsuario"
+	}
+
+7. Pausar transmisión de video
+	- METODO: POST
+	- Data format : JSON
+	- URL: /pausar
+
+	- Params:
+	{
+		"idVideo" : "idVideo",
+		"idUsuario" : "idUsuario",
+		"puerto" : "puertoVideo",
+		"ipUsuario" : "ipUsuario"
+	}
+
+8. Agregar Videos a Lista
+	- Método: PUT
+	- Data format: JSON
+	- URL: /lista/<id:lista>
+
+	- Params:
+	{
+		"idVideos" : ["idv1","idv2"]
+	}
+
+	- Retorno
+	{
+		"status" : "OK"
+	}
