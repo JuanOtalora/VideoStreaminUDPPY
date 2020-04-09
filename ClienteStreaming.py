@@ -28,9 +28,11 @@ class UDP_client(threading.Thread):
 
 		cv2.startWindowThread()
 		cv2.namedWindow("frame")
+		print ('voy a entrar al while de la transmisionx3xx3x3')
 
 		while not finished:
 
+		    print ('voy a entrar al while de la transmisionx2x2')
 		    data, addr = sock.recvfrom(SIZE)
 		    # print len(data)
 
@@ -39,7 +41,7 @@ class UDP_client(threading.Thread):
 
 		        if len(s) == (SIZE*PEDAZOS):
 		            # print "RECEIVED frame"
-
+		            print(s)
 		            frame = numpy.fromstring(s,dtype=numpy.uint8)
 		            # print (frame.shape)
 		            frame = frame.reshape(240,320,3)
@@ -51,16 +53,43 @@ class UDP_client(threading.Thread):
 		            s=""
 
 		        if cv2.waitKey(1) & 0xFF == ord ('q'):
-		            break
+		        	print (' se acabo la transmision')
+		        	break
 		    else:
 		        finished = True
 		        print (' se acabo la transmision')
 		        cv2.destroyAllWindows()
 
+def iniciarDos() :
+	cap = cv2.VideoCapture('./videos/video.mp4')
+	if (cap.isOpened() == False):
+	    	print("Error opening video stream or file")
+
+	while (cap.isOpened()):
+    		# Capture frame-by-frame
+	    print('entra a algo')
+	    ret, frame = cap.read()
+	    if ret == True:
+        	# Display the resulting frame
+	    	cv2.imshow('Frame', frame)
+ 
+        	# Press Q on keyboard to  exit
+	    if cv2.waitKey(25) == ord('q'):
+        	break
+ 
+    		# Break the loop
+	    else:
+	    	break
+
+	cap.release()
+
+
+
 def iniciarTransmision() :
 	
-	SIZE = 7680
+	SIZE = 2048
 	PEDAZOS = 30
+	cap = cv2.VideoCapture('ejemplo.mp4')
 
 	sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 	sock.bind ((ip, UDP_PORT))
@@ -71,29 +100,53 @@ def iniciarTransmision() :
 	print ('voy a entrar al while de la transmision')
 	cv2.startWindowThread()
 	cv2.namedWindow("frame")
+	print ('voy a entrar al while de la transmisionx2x2')
+
+	if (cap.isOpened() == False):
+	    	print("Error opening video stream or file")
+
+	while (cap.isOpened()):
+    		# Capture frame-by-frame
+	    print('entra a algo')
+	    ret, frame = cap.read()
+	    if ret == True:
+        	# Display the resulting frame
+	    	cv2.imshow('Frame', frame)
+ 
+        	# Press Q on keyboard to  exit
+	    if cv2.waitKey(25) == ord('q'):
+        	break
+ 
+    		# Break the loop
+	    else:
+	    	break
+
+	cap.release()
 
 	while not finished:
-
+	    print ('voy a entrar al while de la transmisionx3x3')
 	    data, addr = sock.recvfrom(SIZE)
-	    # print len(data)
 
+	    
 	    if data != "END":
 	        s += data
-
+	        print (s)
 	        if len(s) == (SIZE*PEDAZOS):
-	            # print "RECEIVED frame"
+	            print ("RECEIVED frame")
 
-	            frame = numpy.fromstring(s,dtype=numpy.uint8)
-	            # print (frame.shape)
+	            #frame = numpy.fromstring(s,dtype=numpy.uint8)
+	            ret, frame = s.read()
+	            #print (frame.shape)
 	            frame = frame.reshape(240,320,3)
-	            # print "PRE W: " + str(len(frame)) + " H: " + str(len(frame[0]))
+	            #print ("PRE W: " + str(len(frame)) + " H: " + str(len(frame[0]))
 
-	            cv2.imshow('frame',frame)
+	            cv2.imshow('Frame',frame)
 
 	            s=""
 
-	        if cv2.waitKey(1) & 0xFF == ord ('q'):
-	            break
+	        if cv2.waitKey(25) & 0xFF == ord ('q'):
+	        	print (' se acabo la transmision')
+	        	break
 	    else:
 	        finished = True
 	        print (' se acabo la transmision')
@@ -126,7 +179,7 @@ def verVideoTodos() :
 	#thr = UDP_client()
 	#thr.start()
 	#print 'ya se creo el thread'
-	iniciarTransmision()
+	iniciarDos()
 
 
 def verVideoLista() :
@@ -332,9 +385,9 @@ def makeWindow () :
     global frame4, frame5,frame6,frame7,frame8,frame9,frame10, frame11,UDP_IP, UDP_PORT
 
 
-    ip = '157.253.221.174'
-    UDP_IP = "157.253.221.174"
-    UDP_PORT = 5005
+    ip = '127.0.0.1'
+    UDP_IP = "127.0.0.1"
+    UDP_PORT = 10000
     win = Tk()
     version = 'http://'
 

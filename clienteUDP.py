@@ -3,8 +3,8 @@ import numpy
 import time
 import cv2
 
-UDP_IP = "157.253.218.204"
-UDP_PORT = 5005
+UDP_IP = "127.0.0.1"
+UDP_PORT = 10005
 # SIZE = 46080
 SIZE = 7680
 PEDAZOS = 30
